@@ -1,9 +1,9 @@
 import express from 'express'
-import { allExpense, newExpense, putExpense, deleteExpense } from '../controllers/expense.controller';
+import { getExpense, newExpense, putExpense, deleteExpense } from '../controllers/expense.controller';
 
 const router = express.Router();
 
-router.get('/', allExpense)
+router.get('/', getExpense)
 router.post('/', newExpense)
 router.put('/:id', putExpense)
 router.delete('/:id', deleteExpense)

@@ -38,4 +38,3 @@ export const updateNewBudget = async (userId: number, category: string, month_ye
     })
     return response;
 }
-
