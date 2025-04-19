@@ -56,6 +56,8 @@ model Budget {
   month_year String   @db.VarChar(7)
   created_at DateTime @default(now())
 
+  @@unique([userId, category, month_year])
+
   userId Int // FK
   user   Users @relation(fields: [userId], references: [id])
 }
