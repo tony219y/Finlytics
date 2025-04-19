@@ -1,8 +1,5 @@
 import { Request, Response } from 'express';
-import 'dotenv/config'
 import { getAllIncome, createIncome, updateListIncome, deleteListIncome } from '../services/income.service';
-
-
 
 export const getIncome = async (req: Request, res: Response) => {
     try {
