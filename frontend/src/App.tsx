@@ -1,8 +1,17 @@
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import Landing from "./pages/Landing/Landing";
+import Login from "./pages/auth/Login";
+import SignUp from "./pages/auth/Signup";
+
 const App = () => {
   return (
-    <div className="flex w-full h-screen items-center justify-center">
-      HELLO WORLD!
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Landing/>}/>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/signup" element={<SignUp/>}/>
+      </Routes>
+    </BrowserRouter>
   );
 };
 export default App;
