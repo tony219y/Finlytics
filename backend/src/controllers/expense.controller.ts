@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import 'dotenv/config'
 import { createExpense, getAllExpense, updateExpense, removeExpense } from '../services/expense.service';
 
 export const getExpense = async (req: Request, res: Response) => {
