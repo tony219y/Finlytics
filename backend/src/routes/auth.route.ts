@@ -1,10 +1,14 @@
 import express from 'express'
-import { registerUser, loginUser } from '../controllers/auth.controller';
+import { registerUser, loginUser, userProfile } from '../controllers/auth.controller';
+import { authMiddleware } from '../middlewares/jwt.middleware'
 
 const router = express.Router();
 
-router.post('/signup',registerUser)
-router.post('/login',loginUser)
+router.post('/signup', registerUser)
+router.post('/login', loginUser)
+
+router.get('/profile',authMiddleware, userProfile)
+
 
 
 export default router;

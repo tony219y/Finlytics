@@ -40,5 +40,18 @@ export const login = async (email: string, password: string) => {
     const hashed = await bcrypt.compare(password, existingUser.password);
     if (!hashed) throw new Error("Email or Password is incorrect")
 
-    return generateToken((existingUser.id).toString());
+    return generateToken((existingUser.id).toString(), existingUser.username);
+}
+
+export const getUserProfile = async (userId: number) => {
+    const user = await prisma.users.findFirst({
+        where: {
+            id: userId
+        }
+    })
+    return { 
+        id: user?.id, 
+        username: user?.username
+    }
+
 }

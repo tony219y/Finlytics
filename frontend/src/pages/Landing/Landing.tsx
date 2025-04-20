@@ -86,7 +86,7 @@ export default function Landing() {
           transition={{ delay: 0.8, duration: 0.5 }}
           className="mt-12"
         >
-          <button className="group relative px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/10 hover:bg-white/15 transition-all duration-300">
+          <button onClick={()=> window.location.href ='/signup'} className="group relative px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/10 hover:bg-white/15 transition-all duration-300">
             <span className="flex items-center space-x-2">
               <span>Get Started</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

@@ -1,11 +1,30 @@
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useSignUp, useSignupForm } from "@/hooks/useAuth";
 
-export function SignUpForm({ className,...props}: React.ComponentPropsWithoutRef<"form">) {
+export function SignUpForm({
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<"form">) {
+  const form = useSignupForm();
+  const { register, handleSubmit } = form;
+  const signUpMutation = useSignUp();
+
+  const onSubmit = (data: {
+    username: string;
+    email: string;
+    password: string;
+  }) => {
+    signUpMutation.mutate(data);
+  };
   return (
-    <form className={cn("flex flex-col gap-6", className)} {...props}>
+    <form
+      className={cn("flex flex-col gap-6", className)}
+      {...props}
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Create a new account</h1>
         <p className="text-balance text-sm text-muted-foreground">
@@ -15,26 +34,51 @@ export function SignUpForm({ className,...props}: React.ComponentPropsWithoutRef
       <div className="grid gap-6">
         <div className="grid gap-2">
           <Label htmlFor="username">Username</Label>
-          <Input id="username" type="text" placeholder="username" required />
+          <Input
+            {...register("username")}
+            id="username"
+            type="text"
+            placeholder="username"
+            required
+          />
         </div>
         <div className="grid gap-2">
           <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" placeholder="yourmail@example.com" required />
+          <Input
+            {...register("email")}
+            id="email"
+            type="email"
+            placeholder="yourmail@example.com"
+            required
+          />
         </div>
         <div className="grid gap-2">
           <div className="flex items-center">
             <Label htmlFor="password">Password</Label>
           </div>
-          <Input id="password" type="password" required />
+          <Input
+            {...register("password")}
+            id="password"
+            type="password"
+            required
+          />
         </div>
         <div className="grid gap-2">
           <div className="flex items-center">
             <Label htmlFor="password">Confirm Password</Label>
-            <a href="#" className="ml-auto text-sm underline-offset-4 hover:underline">
+            <a
+              href="#"
+              className="ml-auto text-sm underline-offset-4 hover:underline"
+            >
               Forgot your password?
             </a>
           </div>
-          <Input id="password" type="password" required />
+          <Input
+            {...register("confirmPassword")}
+            id="password"
+            type="password"
+            required
+          />
         </div>
         <Button type="submit" className="w-full">
           Sign up
@@ -61,5 +105,5 @@ export function SignUpForm({ className,...props}: React.ComponentPropsWithoutRef
         </a>
       </div>
     </form>
-  )
+  );
 }

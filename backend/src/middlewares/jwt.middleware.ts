@@ -20,8 +20,8 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
     }
 }
 
-export const generateToken = (userId: string): string => {
-    return jwt.sign({ userId }, process.env.JWT_SECRET!, { expiresIn: '1h' });
+export const generateToken = (userId: string, username: string): string => {
+    return jwt.sign({ userId: userId, username: username }, process.env.JWT_SECRET!, { expiresIn: '1h' });
 };
 
 export const verifyToken = (token: string) => {

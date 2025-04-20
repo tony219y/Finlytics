@@ -1,7 +1,8 @@
 import { HandCoins } from "lucide-react";
 import mt from "../../assets/mountain.mp4";
-
 import { LoginForm } from "@/components/auth/login-form";
+
+import { motion } from "framer-motion";
 
 export default function Login() {
   return (
@@ -16,9 +17,14 @@ export default function Login() {
           </a>
         </div>
         <div className="flex flex-1 items-center justify-center">
-          <div className="w-full max-w-xs">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="w-full max-w-xs"
+          >
             <LoginForm />
-          </div>
+          </motion.div>
         </div>
       </div>
       <div className="relative hidden bg-muted lg:block">
@@ -31,9 +37,8 @@ export default function Login() {
             muted
             playsInline
           >
-            <source src={mt} type="video/mp4"/>
+            <source src={mt} type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0a0a0c]/70 to-[#0a0a0c] z-[2]" />
         </div>
       </div>
     </div>
