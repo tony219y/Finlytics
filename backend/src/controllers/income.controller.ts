@@ -34,8 +34,12 @@ export const updateIncome = async (req: Request, res: Response) => {
 export const deleteIncome = async (req: Request, res: Response) => {
     try {
         const { userId } = (req as any).user;
-        const id = parseInt(req.params.id);
-        await deleteListIncome(parseInt(userId), id)
+        const { ids } = req.body;
+
+        if (!Array.isArray(ids)) {
+            res.status(400).json({ message: "Invalid request format" });
+        }
+        await deleteListIncome(parseInt(userId), ids);
         res.status(200).json({ message: "Deleted!" })
     } catch (error: any) {
         res.status(400).json({ message: error.message })

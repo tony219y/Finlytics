@@ -2,7 +2,8 @@ import { prisma } from "../lib/prisma"
 
 export const getAllIncome = async (userId: number) => {
     const response = await prisma.income.findMany({
-        where: { userId }
+        where: { userId },
+        orderBy: { date: "desc" }
     })
     return response
 }
@@ -30,9 +31,12 @@ export const updateListIncome = async (userId: number, id: number, amount: numbe
     })
     return response;
 }
-export const deleteListIncome = async (userId: number, id: number) => {
-    const response = await prisma.income.delete({
-        where: { userId, id }
+export const deleteListIncome = async (userId: number, id: number[]) => {
+    const response = await prisma.income.deleteMany({
+        where: {
+            userId: userId,
+            id: { in: id }
+        }
     })
     return response;
 }

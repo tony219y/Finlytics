@@ -1,4 +1,5 @@
 import api from "@/lib/axios"
+import { useAuthStore } from "@/stores/auth.store";
 
 export const loginService = async (data: { email: string, password: string }) => {
   try {
@@ -24,3 +25,19 @@ export const signUpService = async (data: { username: string, email: string, pas
     throw new Error(error.response?.data?.message);
   }
 };
+
+
+export const getProfile = async () => {
+  try {
+    const token = useAuthStore.getState().token
+    const response = await api.get('/auth/profile', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    });
+    return response.data;
+  } catch (error: any) {
+    window.location.href='/'
+    throw new Error(error.response?.data?.message);
+  }
+}

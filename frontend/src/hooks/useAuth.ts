@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, LoginSchema, SignUpSchema, signUpSchema } from "@/lib/auth.users";
-import { loginService, signUpService } from "@/services/auth.service";
+import { getProfile, loginService, signUpService } from "@/services/auth.service";
 import { useMutation } from '@tanstack/react-query'
 import { useAuthStore } from "@/stores/auth.store";
+import { useQuery } from "@tanstack/react-query"
 import { toast } from "sonner";
 
 
@@ -25,7 +26,7 @@ export const useLogin = () => {
         onSuccess: (data) => {
             setToken(data)
             toast.success("Login Success!")
-            window.location.href='/dashboard'
+            window.location.href = '/dashboard'
         },
         onError: (err: any) => {
             toast.error(err.message)
@@ -48,10 +49,21 @@ export const useSignUp = () => {
         mutationFn: signUpService,
         onSuccess: () => {
             toast.success("Sign Up Success!")
-            window.location.href='/login'
+            window.location.href = '/login'
         },
         onError: (err: any) => {
             toast.error(err.message)
         },
     })
 }
+
+// * Get Profile
+export const useProfile = () => {
+    return useQuery({
+        queryKey:['profile'],
+        queryFn: getProfile,
+        retry: false, // ! Don't retry is Token expires
+    })
+}
+
+
