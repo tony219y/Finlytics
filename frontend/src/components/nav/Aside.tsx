@@ -1,5 +1,6 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useProfile } from "@/hooks/useAuth";
+import { useAuthStore } from "@/stores/auth.store";
 import { TvMinimal, Dot, UserRound, LogOut, TrendingUp, TrendingDown, ChartLine} from "lucide-react";
 import { useLocation, Link } from "react-router-dom";
 
@@ -8,6 +9,7 @@ const Aside = () => {
   const { data, isLoading } = useProfile()
   const location = useLocation();
   const currentPath = location.pathname;
+  const clearToken = useAuthStore((state) => state.clearToken);
 
   const menuItems = [
     {
@@ -26,20 +28,20 @@ const Aside = () => {
       id: 3,
       icon: <TrendingDown  size={20} />,
       name: "Expense",
-      path: "/about",
+      path: "/expense",
     },
-    {
-      id: 4,
-      icon: <ChartLine size={20} />,
-      name: "Budget",
-      path: "/about",
-    },
-    {
-      id: 5,
-      icon: <UserRound size={20} fill="black" />,
-      name: "About",
-      path: "/about",
-    },
+    // {
+    //   id: 4,
+    //   icon: <ChartLine size={20} />,
+    //   name: "Budget",
+    //   path: "/about",
+    // },
+    // {
+    //   id: 5,
+    //   icon: <UserRound size={20} fill="black" />,
+    //   name: "About",
+    //   path: "/about",
+    // },
   ];
   if (isLoading) return <p>Loading...</p>
   return (
@@ -88,10 +90,9 @@ const Aside = () => {
       {/* Bottom: Logout */}
       <button
         onClick={() => {
-          // ทำ logout logic ที่นี่ เช่น clearToken แล้ว navigate
-          console.log("Logging out...");
+          clearToken();
         }}
-        className="flex mt-auto w-full rounded-md p-3 pl-4 bg-[red]/10 items-center justify-between hover:bg-[red]/20"
+        className="flex mt-auto w-full rounded-md p-3 pl-4 bg-black/10 items-center justify-between hover:bg-black/20"
       >
         <div className="flex gap-4 items-center">
           <LogOut />

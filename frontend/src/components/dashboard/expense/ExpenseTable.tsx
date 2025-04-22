@@ -8,26 +8,25 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
-
+import { useGetExpense } from "@/hooks/useExpense";
 import { useState } from "react";
-import { useGetIncome } from "@/hooks/useIncome";
-import RemoveIncomeDialog from "./RemoveIncomeDialog";
-import EditIncomeDialog from "./EditIncomeDialog";
 import { AnimatePresence, motion } from "framer-motion";
+import EditExpenseDialog from "./EditExpenseDialog";
+import RemoveExpenseDialog from "./RemoveExpenseDialog";
 
-const TableIncome = () => {
+const ExpenseTable = () => {
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
-  const { data: incomes = [], isLoading, refetch } = useGetIncome();
+  const { data: expense = [], isLoading, refetch } = useGetExpense();
 
   const handleCheckboxChange = (id: number) => {
     setSelectedItems((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
   };
-
   if (isLoading) return <p>Loading...</p>;
   return (
     <>
+      {/* Todo Edit And Remove */}
       <AnimatePresence>
         {selectedItems.length > 0 && (
           <motion.div
@@ -37,13 +36,13 @@ const TableIncome = () => {
             exit={{ opacity: 0, y: -20, height: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <EditIncomeDialog
+            <EditExpenseDialog
               selectedItems={selectedItems}
               setSelectedItems={setSelectedItems}
               refetch={refetch}
-              data={incomes.find((e) => e.id === selectedItems[0])}
+              data={expense.find((e) => e.id === selectedItems[0])}
             />
-            <RemoveIncomeDialog
+            <RemoveExpenseDialog
               selectedItems={selectedItems}
               setSelectedItems={setSelectedItems}
               refetch={refetch}
@@ -57,27 +56,29 @@ const TableIncome = () => {
           <TableRow>
             <TableHead className="w-[50px]">Select</TableHead>
             <TableHead className="w-[100px]">Date</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Source</TableHead>
+            <TableHead>Category</TableHead>
+            <TableHead>Description</TableHead>
             <TableHead className="text-right">Amount</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {incomes.map((item) => (
+          {expense.map((item) => (
             <TableRow key={item.id}>
               <TableCell>
                 <Checkbox
                   checked={selectedItems.includes(item.id)}
                   onCheckedChange={() => handleCheckboxChange(item.id)}
-                  aria-label={`Select income from ${item.source}`}
+                  aria-label={`Select expense from ${item.category}`}
                 />
               </TableCell>
               <TableCell className="font-medium">
                 {new Date(item.date).toLocaleDateString("en-GB")}
               </TableCell>
-              <TableCell>Receives</TableCell>
-              <TableCell>{item.source}</TableCell>
-              <TableCell className="text-right font-bold">฿{item.amount}</TableCell>
+              <TableCell>{item.category}</TableCell>
+              <TableCell>{item.description}</TableCell>
+              <TableCell className="text-right font-bold">
+                ฿{item.amount}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -85,4 +86,4 @@ const TableIncome = () => {
     </>
   );
 };
-export default TableIncome;
+export default ExpenseTable;

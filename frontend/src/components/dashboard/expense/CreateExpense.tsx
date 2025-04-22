@@ -1,20 +1,25 @@
-import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useCreateIncome, useIncomeForm } from "@/hooks/useIncome";
+import { Button } from "@/components/ui/button";
+import { useCreateExpense, useExpenseForm } from "@/hooks/useExpense";
 
-const CreateIncome = () => {
+const CreateExpense = () => {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useIncomeForm();
+  } = useExpenseForm();
 
-  const createIncome = useCreateIncome(() => reset());
-  const onSubmit = (data: { amount: number; source: string; date: string }) => {
-    createIncome.mutate(data);
+  const createExpense = useCreateExpense(() => reset());
+  const onSubmit = (data: {
+    amount: number;
+    category: string;
+    description: string;
+    date: string;
+  }) => {
+    createExpense.mutate(data);
   };
   return (
     <Card className="min-w-[500px] w-fit min-h-[200px]">
@@ -39,17 +44,21 @@ const CreateIncome = () => {
               )}
             </div>
             <div className="flex flex-col w-full gap-2">
-              <Label>Source</Label>
+              <Label>Category</Label>
               <Input
-                {...register("source")}
+                {...register("category")}
                 placeholder="Salary, Gift, Invesment, Other."
                 required
               />
             </div>
           </div>
+          <div className="flex flex-col w-full gap-2 mt-2">
+            <Label>Description</Label>
+            <Input {...register("description")} required />
+          </div>
           <div className="flex flex-col w-fill gap-2 mt-1">
             <Label>Date</Label>
-            <div className="flex w-full gap-4  justify-between">
+            <div className="flex w-full gap-4 justify-between">
               <Input
                 {...register("date")}
                 type="date"
@@ -64,4 +73,4 @@ const CreateIncome = () => {
     </Card>
   );
 };
-export default CreateIncome;
+export default CreateExpense;

@@ -6,6 +6,6 @@ const router = express.Router();
 router.get('/', getExpense)
 router.post('/', newExpense)
 router.put('/:id', putExpense)
-router.delete('/:id', deleteExpense)
+router.delete('/', deleteExpense)
 
 export default router;

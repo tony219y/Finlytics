@@ -9,7 +9,7 @@ export const getAllExpense = async (userId: number) => {
     return response;
 }
 
-export const createExpense = async (userId: number, amount: string, category: string, description: string, date: string) => {
+export const createExpense = async (userId: number, amount: number, category: string, description: string, date: string) => {
     const response = await prisma.expense.create({
         data: {
             amount,
@@ -35,9 +35,11 @@ export const updateExpense = async (userId: number, id: number, amount: string, 
     return response;
 }
 
-export const removeExpense = async (userId: number, id: number) => {
-    const response = await prisma.expense.delete({
-        where: { userId, id }
+export const removeExpense = async (userId: number, id: number[]) => {
+    const response = await prisma.expense.deleteMany({
+        where: { 
+            userId: userId, 
+            id: {in: id} }
     })
     return response;
 }

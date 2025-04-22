@@ -14,7 +14,7 @@ export const getExpense = async (req: Request, res: Response) => {
 export const newExpense = async (req: Request, res: Response) => {
     try {
         const { userId } = (req as any).user;
-        const { amount, category, description, date } = req.body;
+        const { amount, category, description, date } = await req.body;
         await createExpense(parseInt(userId), amount, category, description, date)
         res.status(200).json({ message: "Create a expense successfully!" })
     } catch (error: any) {
@@ -37,8 +37,11 @@ export const putExpense = async (req: Request, res: Response) => {
 export const deleteExpense = async (req: Request, res: Response) => {
     try {
         const { userId } = (req as any).user;
-        const id = parseInt(req.params.id);
-        await removeExpense(parseInt(userId), id)
+        const { ids } = req.body;
+        if (!Array.isArray(ids)) {
+            res.status(400).json({ message: "Invalid request format" });
+        }
+        await removeExpense(parseInt(userId), ids)
         res.status(200).json({ message: "Deleted!" })
     } catch (error: any) {
         res.status(400).json({ message: error.message })
