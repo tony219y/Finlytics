@@ -10,7 +10,6 @@ export const useIncomeForm = () =>
     useForm<IncomeSchema>({
         resolver: zodResolver(incomeSchema),
         defaultValues: {
-            // amount: ,
             source: "",
             date: "",
         },
@@ -31,7 +30,7 @@ export const useCreateIncome = (onSuccessCallback?: () => void) => {
 }
 
 // ? get a list of in come
-type Income = {
+export type Income = {
     id: number;
     amount: number;
     source: string;
@@ -51,13 +50,12 @@ export const useGetTotalIncome = () => {
     })
 }
 
-export const DeleteIncome = async (id:number[]) => {
+export const DeleteIncome = async (id: number[]) => {
     return await deleteIncome(id)
 }
+// ? UpdateIncome
 
-export const UpdateIncome = async (
-    id: number,
-    data: { amount: number; source: string; date: string }
-  ) => {
+export const UpdateIncome = async (id: number, data: { amount: number; source: string; date: string }) => {
+    console.log("UpdateIncome: ", id, data)
     return await updateIncome(id, data);
-  };
+};
