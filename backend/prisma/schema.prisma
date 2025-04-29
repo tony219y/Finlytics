@@ -15,7 +15,8 @@ model Users {
   id         Int      @id @default(autoincrement())
   username   String   @db.VarChar(255)
   email      String   @unique
-  password   String   @db.VarChar(255)
+  googleId   String?  @unique @db.VarChar(255)
+  password   String?   @db.VarChar(255)
   created_at DateTime @default(now())
 
   incomes  Income[] // 1:N
@@ -56,8 +57,8 @@ model Budget {
   month_year String   @db.VarChar(7)
   created_at DateTime @default(now())
 
-  @@unique([userId, category, month_year])
-
   userId Int // FK
   user   Users @relation(fields: [userId], references: [id])
+
+  @@unique([userId, category, month_year])
 }

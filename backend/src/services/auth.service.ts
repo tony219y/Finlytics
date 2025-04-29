@@ -2,45 +2,45 @@ import bcrypt from 'bcrypt'
 import { prisma } from '../lib/prisma'
 import { generateToken } from '../middlewares/jwt.middleware'
 
+// ! REGISTER
+export const register = async (userData: { name: string, email: string, id: string }) => {
 
-export const register = async (username: string, email: string, password: string) => {
-
-    const existingUser = await prisma.users.findFirst({
-        where: {
-            OR: [
-                { email: email },
-                { username: username }
-            ]
-        }
-    })
-
-    if (existingUser) throw new Error("Username or email already exists.")
-
-    const hash_password = await bcrypt.hash(password, 10)
     const response = await prisma.users.create({
         data: {
-            username: username,
-            email: email,
-            password: hash_password,
+            username: userData.name,
+            email: userData.email,
+            googleId: userData.id
+
         },
     })
     return response
 }
 
-
-export const login = async (email: string, password: string) => {
+// ! LOGIN
+export const login = async (userData: { name: string, email: string, id: string }) => {
     const existingUser = await prisma.users.findFirst({
         where: {
-            email: email
+            OR: [
+                { email: userData.email },
+                { googleId: userData.id }
+            ]
         }
     })
 
-    if (!existingUser) throw new Error("Email or Password is incorrect")
+    if (!existingUser) {
+        return await register(userData);
+    }
 
-    const hashed = await bcrypt.compare(password, existingUser.password);
-    if (!hashed) throw new Error("Email or Password is incorrect")
+    if (existingUser.googleId === null) {
+        const updatedUser = await prisma.users.update({
+            where: { id: existingUser.id },
+            data: { googleId: userData.id }
+        });
+        return updatedUser;
+    }
 
-    return generateToken((existingUser.id).toString(), existingUser.username);
+    return existingUser;
+
 }
 
 export const getUserProfile = async (userId: number) => {
@@ -49,8 +49,8 @@ export const getUserProfile = async (userId: number) => {
             id: userId
         }
     })
-    return { 
-        id: user?.id, 
+    return {
+        id: user?.id,
         username: user?.username
     }
 

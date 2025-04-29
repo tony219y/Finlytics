@@ -1,7 +1,7 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useProfile } from "@/hooks/useAuth";
 import { useAuthStore } from "@/stores/auth.store";
-import { TvMinimal, Dot, UserRound, LogOut, TrendingUp, TrendingDown, ChartLine} from "lucide-react";
+import { TvMinimal, Dot, LogOut, TrendingUp, TrendingDown} from "lucide-react";
 import { useLocation, Link } from "react-router-dom";
 
 

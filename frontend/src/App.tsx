@@ -11,6 +11,7 @@ import Aside from "./components/nav/Aside";
 import About from "./pages/about/About";
 import Income from "./pages/Income/Income";
 import Expense from "./pages/expense/Expense";
+import AuthCallBackGoogle from "./pages/auth/AuthCallBackGoogle";
 
 const queryClient = new QueryClient(); // ✅ สร้าง instance
 
@@ -34,7 +35,8 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-
+          <Route path="/auth/callback" element={<AuthCallBackGoogle />} />
+          
           <Route element={<ProtectedRoute />}>
             <Route element={<MainLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />
