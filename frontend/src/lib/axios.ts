@@ -2,7 +2,8 @@ import axios from 'axios'
 
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  // baseURL: 'http://localhost:3000/api',
+  baseURL: 'https://api-finlytics.tony219y.com/api',
 })
 
 // auto include token to header all api endpoint

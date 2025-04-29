@@ -9,6 +9,9 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  preview: {
+    allowedHosts: ['finlytics.tony219y.com'],
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
