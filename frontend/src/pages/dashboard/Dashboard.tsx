@@ -1,5 +1,5 @@
 import BalanceCard from "@/components/dashboard/balance/BalanceCard";
-import BudgetCard from "@/components/dashboard/budget/BudgetCard";
+// import BudgetCard from "@/components/dashboard/budget/BudgetCard";
 import ExpenseCard from "@/components/dashboard/expense/ExpenseCard";
 import IncomeCard from "@/components/dashboard/income/IncomeCard";
 
