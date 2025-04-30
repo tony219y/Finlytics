@@ -1,12 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import api from "@/lib/axios";
 
 export function SignUpForm() {
 
   const handleGoogleLogin = async () => {
     try {
-      window.location.href = api.defaults.baseURL + "/auth/google";
+      window.location.href = "https://api-finlytics.tony219y.com/api/auth/google";
     } catch (error: any) {
       toast.error(error.message);
     }
