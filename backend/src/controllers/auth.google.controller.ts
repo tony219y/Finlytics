@@ -6,7 +6,6 @@ import { callbackService } from '../services/auth.google.service';
 import { login } from '../services/auth.service';
 import { generateToken } from '../middlewares/jwt.middleware';
 
-
 export const googleAuth = async (req: Request, res: Response) => {
     const params = querystring.stringify({
         client_id: process.env.CLIENT_ID,
