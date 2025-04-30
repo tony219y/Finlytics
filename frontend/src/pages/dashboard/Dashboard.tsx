@@ -6,7 +6,7 @@ import IncomeCard from "@/components/dashboard/income/IncomeCard";
 const Dashboard = () => {
   return (
     <>
-        <div className="flex gap-4 p-10 w-fit h-fit rounded-2xl">
+        <div className="flex gap-4 p-10 w-fit h-fit rounded-2xl max-md:flex-col">
           <BalanceCard />
           <IncomeCard />
           <ExpenseCard />
