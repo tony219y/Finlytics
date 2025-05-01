@@ -28,8 +28,8 @@ export const googleCallback = async (req: Request, res: Response) => {
         const userData = await callbackService(code) //verify code for get user data
         const user = await login(userData);
         const token = generateToken((user.id).toString(), user.username); //generate token
-        res.redirect(`http://localhost:5173/auth/callback?token=${token}`);
-        // res.redirect(`https://finlytics.tony219y.com/auth/callback?token=${token}`);
+        // res.redirect(`http://localhost:5173/auth/callback?token=${token}`);
+        res.redirect(`https://finlytics.tony219y.com/auth/callback?token=${token}`);
 
     } catch (error) {
         console.error("Error during authentication:", error);
