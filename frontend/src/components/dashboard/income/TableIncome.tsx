@@ -73,7 +73,16 @@ const TableIncome = () => {
                 />
               </TableCell>
               <TableCell className="font-medium">
-                {new Date(item.date).toLocaleDateString("en-GB")}
+              <p>
+                  {new Date(item.date).toLocaleString("en-GB", {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: false,
+                  })}
+                </p>
               </TableCell>
               <TableCell>Receives</TableCell>
               <TableCell>{item.source}</TableCell>

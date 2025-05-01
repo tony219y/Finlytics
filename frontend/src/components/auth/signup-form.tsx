@@ -6,6 +6,8 @@ export function SignUpForm() {
   const handleGoogleLogin = async () => {
     try {
       window.location.href = "https://api-finlytics.tony219y.com/api/auth/google";
+      // window.location.href = 'http://localhost:3000/api/auth/google';
+
     } catch (error: any) {
       toast.error(error.message);
     }

@@ -45,7 +45,7 @@ const Aside = () => {
   ];
   if (isLoading) return <p>Loading...</p>
   return (
-    <div className="fixed left-6 top-9 w-[280px] h-[calc(100vh-4.5rem)] rounded-2xl shadow-xl border bg-white p-6 z-10 max-lg:w-fit max-lg:p-3 flex flex-col">
+    <div className="fixed left-6 top-9 w-[280px] h-[calc(100vh-4.5rem)] rounded-2xl shadow-xl border bg-white p-6 z-10 max-lg:w-fit max-lg:p-3 flex flex-col max-md:hidden">
       {/* Top: Avatar + Menu */}
       <div className="flex flex-col gap-12">
         {/* Head */}

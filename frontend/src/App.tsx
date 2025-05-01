@@ -12,14 +12,16 @@ import About from "./pages/about/About";
 import Income from "./pages/Income/Income";
 import Expense from "./pages/expense/Expense";
 import AuthCallBackGoogle from "./pages/auth/AuthCallBackGoogle";
+import MobileNav from "./components/nav/Mobile_nav";
 
-const queryClient = new QueryClient(); // ✅ สร้าง instance
+const queryClient = new QueryClient();
 
 const MainLayout = () => {
   return (
-    <div className="flex w-full h-screen p-10">
+    <div className="flex border border-[red] w-full h-screen p-10 max-md:p-0 max-md:justify-center max-md:items-center">
       <Aside />
-      <div className="flex-1 ml-[300px] max-lg:ml-[80px]">
+      <MobileNav />
+      <div className="flex-1 ml-[300px] max-lg:ml-[80px] max-md:ml-0">
         <Outlet />
       </div>
     </div>
